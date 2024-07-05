@@ -1,24 +1,18 @@
-# README
+# Elysium
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Elysium is an application to help game developers, writers and others define/manage/map out 
+narrative experiences.  This was built to help manage a growing number of storylines, characters for a personal game project.
+This acts as a single source of truth for the game's narrative, which can be exported to JSON and imported into your engine
+of choice.  For instance, I export into JSON and import into Unreal Engine 5's DataTable.  
 
-Things you may want to cover:
+Currently this is configured as such:
+- Rails 7
+- Ruby 3.2.2
+- PostgresQL
 
-* Ruby version
 
-* System dependencies
+## How to Run Locally (Via Ruby)
 
-* Configuration
 
-* Database creation
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## How To Run Locally via Docker
