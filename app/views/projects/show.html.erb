@@ -1,0 +1,15 @@
+<div class="mx-auto md:w-2/3 w-full flex justify-center">
+  <div class="w-full lg:w-3/4 xl:w-2/3">
+    <% if notice.present? %>
+      <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+    <% end %>
+
+    <%= render @project %>
+
+    <div class="mt-4 flex space-x-2">
+      <%= link_to "Edit this project", edit_project_path(@project), class: "rounded-lg py-3 px-5 bg-green-500 text-white font-medium hover:bg-green-600" %>
+      <%= link_to "Back to projects", projects_path, class: "rounded-lg py-3 px-5 bg-gray-100 text-black font-medium hover:bg-gray-200" %>
+      <%= button_to "Destroy this project", @project, method: :delete, class: "rounded-lg py-3 px-5 bg-red-500 text-white font-medium hover:bg-red-600" %>
+    </div>
+  </div>
+</div>

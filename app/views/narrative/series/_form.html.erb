@@ -1,0 +1,32 @@
+<%= form_with(model: [narrative_series.project, narrative_series], url: narrative_series.new_record? ? project_narrative_series_path(narrative_series.project) : project_narrative_series_path(narrative_series.project, narrative_series), local: true, class: "space-y-6") do |form| %>
+  <% if narrative_series.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-4 py-3 rounded-lg mt-3">
+      <h2 class="font-medium"><%= pluralize(narrative_series.errors.count, "error") %> prohibited this narrative series from being saved:</h2>
+
+      <ul class="mt-2 list-disc list-inside">
+        <% narrative_series.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :title, class: "block text-sm font-medium text-gray-700" %>
+    <%= form.text_field :title, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
+  </div>
+
+  <div>
+    <%= form.label :description, class: "block text-sm font-medium text-gray-700" %>
+    <%= form.text_area :description, rows: 5, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
+  </div>
+
+  <div>
+    <%= form.label :export_name, class: "block text-sm font-medium text-gray-700" %>
+    <%= form.text_field :export_name, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
+  </div>
+
+  <div>
+    <%= form.submit "Save", class: "inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+  </div>
+<% end %>

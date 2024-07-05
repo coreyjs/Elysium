@@ -1,0 +1,2 @@
+module Narrative::SeriesHelper
+end

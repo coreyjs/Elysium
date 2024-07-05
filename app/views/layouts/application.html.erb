@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html data-theme="night">
+  <head>
+    <title>Elysium</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <!-- Header -->
+  <header class=" text-white shadow-md">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <div class="text-lg font-semibold"><%= link_to "Elysium", root_path, class: "text-white" %></div>
+      <nav>
+        <ul class="flex space-x-4">
+          <li>
+            <%= link_to "Projects", projects_path, class: "text-white" %>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Content Area -->
+  <main class="container mx-auto px-4 py-8">
+    <%= yield %>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white py-4 mt-8">
+    <div class="container mx-auto px-4 text-center">
+      © 2024 Red Bird Games. All rights reserved.
+    </div>
+  </footer>
+</html>

@@ -1,0 +1,35 @@
+<div class="shadow-md rounded-lg overflow-hidden">
+  <!-- Hero Section -->
+  <div class="text-white py-20">
+    <div class="container mx-auto px-4 text-center">
+      <h1 class="text-4xl font-bold mb-4">Welcome To Elysium</h1>
+      <p class="text-lg mb-6">Continue Where You Left Off</p>
+      <a href="#" class="bg-secondary text-white font-semibold py-2 px-4 rounded hover:bg-secondary-dark">Get Started</a>
+    </div>
+    <!-- Projects Grid -->
+    <div class="container mx-auto px-4 py-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <% @projects.each do |p| %>
+        <div class="bg-white text-black shadow-md rounded-lg p-4">
+          <h3 class="font-bold text-xl mb-2">
+            <%= link_to p.title, project_path(p) %>
+          </h3>
+          <p class="text-sm"><%= p.updated_at %></p>
+        </div>
+      <% end %>
+
+      <!-- Project 4 -->
+      <div class="bg-secondary text-black shadow-md rounded-lg p-4">
+        <h3 class="font-bold text-xl mb-2">View All</h3>
+        <p class="text-sm">Go To Collections</p>
+      </div>
+      <!-- Add more project elements as needed -->
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="container mx-auto px-4 py-8">
+    <h2 class="text-2xl font-bold mb-4">Continue Where You Left Off</h2>
+    <p class="text-neutral-dark mb-4">This is where you can add more content to your home page. You can include text, images, or any other elements that you need to showcase.</p>
+    <p class="text-neutral-dark mb-4">Feel free to customize this section to fit the needs of your application.</p>
+  </div>
+</div>

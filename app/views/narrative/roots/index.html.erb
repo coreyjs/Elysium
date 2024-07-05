@@ -1,0 +1,21 @@
+<div class="w-full">
+  <% if notice.present? %>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+  <% end %>
+
+  <% content_for :title, "Roots" %>
+
+  <div class="flex justify-between items-center">
+    <h1 class="font-bold text-4xl">Roots</h1>
+    <%= link_to "New root", new_narrative_root_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+  </div>
+
+  <div id="narrative_roots" class="min-w-full">
+    <% @narrative_roots.each do |narrative_root| %>
+      <%= render narrative_root %>
+      <p>
+        <%= link_to "Show this root", narrative_root, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+      </p>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+<div class="mx-auto md:w-2/3 w-full mt-8">
+  <h1 class="font-bold text-4xl mb-6">Editing Narrative Series</h1>
+
+  <div class="bg-white shadow-lg rounded-lg p-6 border border-gray-300">
+    <%= render "form", narrative_series: @narrative_series %>
+  </div>
+
+  <div class="mt-6">
+    <%= link_to "Show this series", project_narrative_series_path(@narrative_series.project, @narrative_series), class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium hover:bg-gray-200" %>
+    <%= link_to "Back to series", project_narrative_series_index_path(@narrative_series.project), class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium hover:bg-gray-200" %>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+<div class="bg-neutral shadow-lg rounded-lg p-4 border border-primary mb-4">
+  <!-- Project Title -->
+  <div class="mb-4">
+    <h2 class="text-3xl font-semibold mb-2"><%= project.title %></h2>
+    <p class="mb-4 flex items-center space-x-2">
+      <% if not project.deleted %>
+        <span class="inline-block bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Active</span>
+      <% else %>
+        <span class="inline-block bg-red-100 text-red-800 text-xs px-2 py-1 rounded-full">Inactive</span>
+      <% end %>
+      <span class="text-sm">Quests: <%= project.narrative_series.length %></span>
+    </p>
+  </div>
+
+  <!-- Project Narrative Series -->
+  <div class="narrative-series-section">
+    <h3 class="text-lg font-semibold mb-2 font-secondary">Narrative Series</h3>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 narrative-series-grid" data-project-id="<%= project.id %>">
+      <% project.narrative_series.each do |narrative| %>
+        <div class="bg-gray-100 p-4 rounded-lg shadow-md">
+          <h4 class="font-bold text-primary mb-2">
+            <%= link_to narrative.title, project_narrative_series_path(project, narrative) %>
+          </h4>
+          <p class="text-sm text-secondary">Quests: <%= narrative.narrative_roots.length %></p>
+        </div>
+      <% end %>
+      <div class="bg-gray-100 p-4 rounded-lg shadow-md flex items-center justify-center cursor-pointer add-narrative-series" data-project-id="<%= project.id %>">
+        <span class="text-2xl text-gray-500">+</span>
+      </div>
+    </div>
+  </div>
+</div>

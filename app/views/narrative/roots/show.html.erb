@@ -1,0 +1,36 @@
+<div class="mx-auto md:w-2/3 w-full flex">
+  <div class="mx-auto">
+    <% if notice.present? %>
+      <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+    <% end %>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumbs  text-sm">
+      <ul>
+        <li>
+          <%= link_to 'Projects', projects_path(@narrative_root.project), class: 'text-blue-500 hover:text-blue-700' %>
+        </li>
+        <li>
+          <%= link_to @narrative_root.project.title, project_path(@narrative_root.project),
+                      class: 'text-blue-500 hover:text-blue-700' %>
+        </li>
+        <li>
+          <%= link_to @narrative_root.narrative_series.title, project_narrative_series_path(@narrative_root.project, @narrative_root.narrative_series),
+                      class: 'text-blue-500 hover:text-blue-700' %>
+        </li>
+        <li>
+          <span class="text-gray-700"><%= @narrative_root.title %></span>
+        </li>
+      </ul>
+    </div>
+
+
+    <%= render @narrative_root %>
+
+    <%= link_to "Edit this root", edit_project_narrative_series_path(@narrative_root), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to "Back to Series", project_narrative_series_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <div class="inline-block ml-2">
+      <%#= button_to "Destroy this root", @narrative_root, method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+    </div>
+  </div>
+</div>
