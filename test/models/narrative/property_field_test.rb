@@ -7,6 +7,7 @@
 #  export_name        :string
 #  name               :string
 #  property_type      :integer          default("string")
+#  show               :boolean          default(FALSE)
 #  value              :jsonb
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null

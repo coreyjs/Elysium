@@ -1,7 +1,9 @@
 <div class="mx-auto md:w-2/3 w-full">
   <h1 class="font-bold text-4xl">New series</h1>
 
-  <%= render "form", narrative_series: @narrative_series %>
+  <div class="bg-white shadow-lg rounded-lg p-6 border border-gray-300">
 
-  <%= link_to "Back to series", narrative_series_index_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= render "form", narrative_series: @narrative_series %>
+  </div>
+  <%= link_to "Back to Project", project_path(@narrative_series.project), class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
 </div>

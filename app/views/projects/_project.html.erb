@@ -24,8 +24,8 @@
           <p class="text-sm text-secondary">Quests: <%= narrative.narrative_roots.length %></p>
         </div>
       <% end %>
-      <div class="bg-gray-100 p-4 rounded-lg shadow-md flex items-center justify-center cursor-pointer add-narrative-series" data-project-id="<%= project.id %>">
-        <span class="text-2xl text-gray-500">+</span>
+      <div class="bg-gray-100 p-4 rounded-lg shadow-md flex items-center justify-center add-narrative-series" data-project-id="<%= project.id %>">
+        <span class="text-2xl text-gray-500"><%= link_to "+", new_project_narrative_series_path(project) %></span>
       </div>
     </div>
   </div>

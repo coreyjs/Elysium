@@ -13,13 +13,15 @@
       <% @narrative_series.narrative_roots.each do |nr| %>
         <div class="bg-gray-100 p-4 rounded-lg shadow-md">
           <h4 class="font-bold text-primary mb-2">
-            <%= link_to nr.title, project_narrative_series_root_path(@narrative_series.project, @narrative_series, nr) %>
+            <%= link_to nr.title, project_narrative_series_narrative_root_path(@narrative_series.project, @narrative_series, nr) %>
           </h4>
           <p class="text-sm text-secondary">Steps: <%= nr.narrative_steps.length %></p>
         </div>
       <% end %>
       <div class="bg-gray-100 p-4 rounded-lg shadow-md flex items-center justify-center cursor-pointer add-narrative-root" data-project-id="<%= @narrative_series.id %>">
-        <span class="text-2xl text-gray-500">+</span>
+        <span class="text-2xl text-gray-500">
+          <%= link_to "+", new_project_narrative_series_narrative_root_path(@narrative_series.project, @narrative_series) %>
+        </span>
       </div>
     </div>
   </div>

@@ -1,12 +1,19 @@
 Rails.application.routes.draw do
+  namespace :narrative do
+    resources :steps
+  end
+  resources :default_property_fields
 
   resources :projects do
     resources :narrative_series, controller: 'narrative/series' do
-      resources :roots, controller: 'narrative/roots' do
-        resources :property_fields, controller: 'narrative/property_fields'
+      resources :narrative_roots, controller: 'narrative/roots' do
+        resources :narrative_property_fields, controller: 'narrative/property_fields'
+        resources :narrative_steps, controller: 'narrative/steps'
       end
     end
   end
+
+  resources :narrative_property_fields, only: [:create, :update], controller: 'narrative/property_fields'
 
 
   get 'public/home'

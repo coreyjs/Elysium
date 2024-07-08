@@ -1,17 +1,46 @@
-<%= form_with(model: narrative_property_field, class: "contents") do |form| %>
-  <% if narrative_property_field.errors.any? %>
+
+<%= form_with(model: [@narrative_property_field], class: "space-y-4") do |form| %>
+    <% if @narrative_property_field.dynamic_model_type == "Narrative::Root" %>
+    <input type="hidden" name="narrative_root_id" value="<%= @narrative_property_field.dynamic_model.id %>">
+    <% elsif @narrative_property_field.dynamic_model.instance_of?(Narrative::Step) %>
+      <%= form.hidden_field :narrative_step_id, value: @narrative_property_field.dynamic_model.id %>
+  <% end %>
+
+    <% if @narrative_property_field.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
-      <h2><%= pluralize(narrative_property_field.errors.count, "error") %> prohibited this narrative_property_field from being saved:</h2>
+      <h2><%= pluralize(@narrative_property_field.errors.count, "error") %> prohibited this narrative_property_field from being saved:</h2>
 
       <ul>
-        <% narrative_property_field.errors.each do |error| %>
+        <% @narrative_property_field.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
+  <div>
+    <%= form.label :name, class: "block text-sm font-medium text-gray-700" %>
+    <%= form.text_field :name, class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" %>
+  </div>
+
+  <div>
+    <%= form.label :value, class: "block text-sm font-medium text-gray-700" %>
+    <%= form.text_field :value, class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" %>
+  </div>
+
+  <div>
+    <%= form.label :export_name, class: "block text-sm font-medium text-gray-700" %>
+    <%= form.text_field :export_name, class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" %>
+  </div>
+
+  <div>
+    <%= form.label :property_field_type, class: "block text-sm font-medium text-gray-700" %>
+    <%= form.select :property_field_type, Narrative::PropertyField.property_types.keys, class: 'border rounded px-2 py-1 mr-2' %>
+  </div>
+
+
   <div class="inline">
-    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+    <br/>
+    <%= form.submit class: "btn bg-primary py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer hover:bg-blue-700" %>
   </div>
 <% end %>

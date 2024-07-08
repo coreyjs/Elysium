@@ -4,6 +4,7 @@ class CreateNarrativePropertyFields < ActiveRecord::Migration[7.1]
       t.string :name
       t.string :export_name
       t.integer :property_type, default: 0
+      t.boolean :show, default: false
       t.jsonb :value
       t.references :dynamic_model, polymorphic: true
       t.timestamps

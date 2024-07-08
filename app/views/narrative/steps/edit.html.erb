@@ -1,0 +1,9 @@
+<div class="mx-auto md:w-2/3 w-full space-y-2">
+  <h1 class="font-bold text-4xl">Editing step</h1>
+  <div class="bg-white shadow-lg rounded-lg p-6 border border-gray-300">
+    <%= render "form", narrative_step: @narrative_step %>
+
+  </div>
+  <%= link_to "View", @narrative_step, class: "btn btn-primary" %>
+  <%= link_to "Back to Root", project_narrative_series_narrative_root_path(@narrative_step.project, @narrative_step.narrative_root), class: "btn btn-secondary" %>
+</div>

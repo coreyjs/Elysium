@@ -4,62 +4,83 @@
     <h2 class="text-2xl font-semibold mb-2"><%= @narrative_root.title %></h2>
   </div>
 
-  <div tabindex="0" class="collapse collapse-arrow border-base-300 bg-base-200 border">
-    <div class="collapse-title text-xl font-medium">Focus me to see content</div>
-    <div class="collapse-content">
-      <p>tabindex="0" attribute is necessary to make the div focusable</p>
-    </div>
+  <!-- Button to Add New PropertyField -->
+  <div class="mt-4">
+    <%= link_to 'Add New Field', new_project_narrative_series_narrative_root_narrative_property_field_path(@narrative_root.project, @narrative_root.narrative_series, @narrative_root), class: 'btn btn-primary' %>
   </div>
 
-  <!-- Narrative Property Fields -->
+  <div class="">
+
+  </div>
+  <!-- Property Fields -->
   <div class="overflow-x-auto">
-    <table class="min-w-full bg-white border border-gray-200 shadow-md rounded-lg">
+    <table class="table">
       <thead>
-      <tr class="bg-gray-100">
-        <th class="px-6 py-3 border-b-2 border-gray-200 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">Name</th>
-        <th class="px-6 py-3 border-b-2 border-gray-200 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">Value</th>
-        <th class="px-6 py-3 border-b-2 border-gray-200 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">Type</th>
-        <th class="px-6 py-3 border-b-2 border-gray-200 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">JSON Name</th>
+      <tr>
+        <th>Name</th>
+        <th>Value</th>
+        <th>Type</th>
+        <th>JSON Name</th>
+        <th>Actions</th>
       </tr>
       </thead>
-      <tbody class="divide-y divide-gray-200">
-      <!-- Table rows here -->
-      <% @narrative_root.narrative_property_fields.each do |np| %>
-        <tr>
-          <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-            <%= np.name %>
-          </td>
-          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-            <%= np.value %>
-          </td>
-          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-            <%= select_tag :property_type, options_for_select(Narrative::PropertyField.property_types) %>
-          </td>
-          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-            <%= np.export_name %>
-          </td>
+      <tbody id="property-fields-list">
+      <% @narrative_root.narrative_property_fields.each do |property_field| %>
+        <tr id="property-field-<%= property_field.id %>">
+          <%= render property_field %>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+            <div class="flex space-x-2">
+              <%= link_to "Edit", edit_project_narrative_series_narrative_root_narrative_property_field_path(@narrative_root.project, @narrative_root.narrative_series, @narrative_root, property_field), class: "btn-sm bg-primary text-white rounded px-1 py-2 text-xs" %>
+              <%= link_to "Delete", project_narrative_series_narrative_root_narrative_property_field_path(@narrative_root.project, @narrative_root.narrative_series, @narrative_root, property_field), method: :delete, class: "btn-sm bg-accent  px-1 py-1 text-white rounded" %>
+
+            </div>
+           </td>
         </tr>
       <% end %>
-
-      <!-- Add more rows as needed -->
       </tbody>
+      <tfoot>
+      <tr>
+        <th>Name</th>
+        <th>Value</th>
+        <th>Type</th>
+        <th>JSON Name</th>
+        <th></th>
+      </tr>
+      </tfoot>
     </table>
   </div>
 
-<!--  <div class="narrative-properties-section">-->
-<!--    <h3 class="text-lg font-semibold mb-2 font-secondary">Narrative Properties</h3>-->
-<!--    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 narrative-property-grid" data-project-id="<%#= @narrative_root.id %>">-->
-      <%# @narrative_root.narrative_property_fields.each do |np| %>
-<!--        <div class="bg-gray-100 p-4 rounded-lg shadow-md">-->
-<!--          <h4 class="font-bold text-primary mb-2">-->
-            <%#= link_to np.title, project_narrative_series_root_property_path(@narrative_root.narrative_series.project, @narrative_root.narrative_series, @narrative_root, np) %>
-<!--          </h4>-->
-<!--          <p class="text-sm text-secondary">Value: <%#= np.value %></p>-->
-<!--        </div>-->
-      <%# end %>
-<!--      <div class="bg-gray-100 p-4 rounded-lg shadow-md flex items-center justify-center cursor-pointer add-narrative-property" data-project-id="<%#= @narrative_root.id %>">-->
-<!--        <span class="text-2xl text-gray-500">+</span>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
+
+</div>
+
+<div class="bg-neutral shadow-lg rounded-lg p-4 border border-primary mb-4">
+  <!-- Narrative Steps -->
+  <h2 class="text-2xl font-semibold mb-2">
+    Narrative Steps
+  </h2>
+
+  <div class="mt-4">
+    <%= link_to 'Add Step', new_project_narrative_series_narrative_root_narrative_step_path(@narrative_root.project, @narrative_root.narrative_series, @narrative_root), class: 'btn btn-primary' %>
+  </div>
+<br/>
+  <div class="space-y-4">
+    <% @narrative_root.narrative_steps.each do |step| %>
+      <div class="bg-gray-100 p-4 rounded-lg">
+        <h4 class="font-bold text-primary mb-2">Name</h4>
+
+
+        <% step.narrative_property_fields.show_fields.each do |f| %>
+          <div class="">
+            <h4 class="font-bold text-black mb-2"><%= f.name %>:</h4>
+            <p class="text-sm text-secondary"><%= f.value %></p>
+          </div>
+        <% end %>
+
+        <div>
+          <%= link_to 'Edit', edit_project_narrative_series_narrative_root_narrative_step_path(@narrative_root.project, @narrative_root.narrative_series, @narrative_root, step), class: 'btn btn-primary' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
 </div>

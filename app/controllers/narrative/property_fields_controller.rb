@@ -1,70 +1,79 @@
+# app/controllers/narrative/property_fields_controller.rb
 class Narrative::PropertyFieldsController < ApplicationController
-  before_action :set_narrative_property_field, only: %i[ show edit update destroy ]
+  before_action :set_dynamic_model, only: %i[ new create update]
+  before_action :set_property_field, only: %i[ edit update destroy]
 
-  # GET /narrative/property_fields or /narrative/property_fields.json
-  def index
-    @narrative_property_fields = Narrative::PropertyField.all
-  end
-
-  # GET /narrative/property_fields/1 or /narrative/property_fields/1.json
-  def show
-  end
-
-  # GET /narrative/property_fields/new
   def new
-    @narrative_property_field = Narrative::PropertyField.new
+    @narrative_property_field = @dynamic_model.narrative_property_fields.build
+    # @narrative_property_field.dynamic_model = @dynamic_model
   end
 
-  # GET /narrative/property_fields/1/edit
-  def edit
-  end
-
-  # POST /narrative/property_fields or /narrative/property_fields.json
   def create
-    @narrative_property_field = Narrative::PropertyField.new(narrative_property_field_params)
-
-    respond_to do |format|
-      if @narrative_property_field.save
-        format.html { redirect_to narrative_property_field_url(@narrative_property_field), notice: "Property field was successfully created." }
-        format.json { render :show, status: :created, location: @narrative_property_field }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @narrative_property_field.errors, status: :unprocessable_entity }
+    @narrative_property_field = @dynamic_model.narrative_property_fields.create(property_field_params)
+    if @narrative_property_field.save
+      respond_to do |format|
+        format.html { redirect_to redirect_dynamic_path(@dynamic_model), notice: 'Property field was successfully created.' }
+        format.json { render :show, status: :created, location: @dynamic_model }
+      end
+    else
+      respond_to do |format|
+        format.html { render :new }
+        format.json { render json: @dynamic_model.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # PATCH/PUT /narrative/property_fields/1 or /narrative/property_fields/1.json
+  def edit
+
+  end
+
   def update
-    respond_to do |format|
-      if @narrative_property_field.update(narrative_property_field_params)
-        format.html { redirect_to narrative_property_field_url(@narrative_property_field), notice: "Property field was successfully updated." }
-        format.json { render :show, status: :ok, location: @narrative_property_field }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @narrative_property_field.errors, status: :unprocessable_entity }
+    if @narrative_property_field.update(property_field_params)
+      respond_to do |format|
+        format.html { redirect_to redirect_dynamic_path(@dynamic_model), notice: 'Property field was successfully updated.' }
+        format.json { render :show, status: :ok, location: @dynamic_model }
+      end
+    else
+      respond_to do |format|
+        format.html { render :edit }
+        format.json { render json: @dynamic_model.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # DELETE /narrative/property_fields/1 or /narrative/property_fields/1.json
   def destroy
-    @narrative_property_field.destroy!
-
+    @narrative_property_field = @dynamic_model.narrative_property_fields.find(params[:id])
+    @narrative_property_field.destroy
     respond_to do |format|
-      format.html { redirect_to narrative_property_fields_url, notice: "Property field was successfully destroyed." }
+      format.html { redirect_to redirect_dynamic_path(@dynamic_model), notice: 'Property field was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_narrative_property_field
-      @narrative_property_field = Narrative::PropertyField.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def narrative_property_field_params
-      params.fetch(:narrative_property_field, {})
+  def set_dynamic_model
+    @dynamic_model = if params[:narrative_root_id]
+                      Narrative::Root.find(params[:narrative_root_id])
+                    elsif params[:step_id]
+                      Narrative::Step.find(params[:step_id])
+                    end
+  end
+
+  def property_field_params
+    params.require(:narrative_property_field).permit(:name, :value, :field_type, :narrative_root_id, :narrative_step_id)
+  end
+
+  def redirect_dynamic_path(model)
+    case model
+    when Narrative::Root
+      project_narrative_series_narrative_root_path(model.project, model.narrative_series, model)
+    when Narrative::Step
+      # project_narrative_series_narrative_root_narrative_step_path(model.project, model.narrative_series, model.narrative_root, model)
     end
+  end
+
+  def set_property_field
+    @narrative_property_field = Narrative::PropertyField.find(params[:id])
+  end
 end
