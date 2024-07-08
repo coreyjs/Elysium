@@ -13,6 +13,7 @@ class Narrative::SeriesController < ApplicationController
   # GET /narrative/series/new
   def new
     @narrative_series = Narrative::Series.new
+    @narrative_series.project = Project.find(params[:project_id])
   end
 
   # GET /narrative/series/1/edit
@@ -24,11 +25,21 @@ class Narrative::SeriesController < ApplicationController
     @project = Project.find(params[:project_id])
     @narrative_series = @project.narrative_series.create(narrative_series_params)
 
-    if @narrative_series.save
-      render json: @narrative_series, status: :created
-    else
-      render json: @narrative_series.errors, status: :unprocessable_entity
+    respond_to do |format|
+      if @narrative_series.save
+        format.html { redirect_to project_narrative_series_url(@narrative_series.project, @narrative_series), notice: "Series Created." }
+        format.json { render :show, status: :created, location: @narrative_series }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @narrative_series.errors, status: :unprocessable_entity }
+      end
     end
+
+    # if @narrative_series.save
+    #   render json: @narrative_series, status: :created
+    # else
+    #   render json: @narrative_series.errors, status: :unprocessable_entity
+    # end
   end
 
   # PATCH/PUT /narrative/series/1 or /narrative/series/1.json

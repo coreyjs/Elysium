@@ -21,7 +21,6 @@
 
     <div class="mt-4 flex space-x-2">
       <%= link_to "Edit this series", edit_project_narrative_series_path(@narrative_series), class: "rounded-lg py-3 px-5 bg-green-500 text-white font-medium hover:bg-green-600" %>
-      <%#= link_to "Back to series", project_narrative_series_index_path(@narrative_series.project), class: "rounded-lg py-3 px-5 bg-gray-100 text-black font-medium hover:bg-gray-200" %>
       <%= button_to "Destroy this series", project_narrative_series_path(@narrative_series.project, @narrative_series), method: :delete, class: "rounded-lg py-3 px-5 bg-red-500 text-white font-medium hover:bg-red-600" %>
     </div>
   </div>

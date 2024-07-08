@@ -3,6 +3,8 @@
 # Table name: narrative_steps
 #
 #  id                :bigint           not null, primary key
+#  name              :string
+#  ordinal           :integer          default(0)
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  narrative_root_id :bigint           not null

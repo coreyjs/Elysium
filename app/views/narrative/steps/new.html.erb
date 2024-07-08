@@ -1,0 +1,9 @@
+<div class="mx-auto md:w-2/3 w-full">
+  <h1 class="font-bold text-4xl mb-4">New Step</h1>
+  <div class="bg-white shadow-lg rounded-lg p-6 border border-gray-300">
+    <%= render "form", narrative_step: @narrative_step %>
+  </div>
+  <div class="mt-4">
+    <%= link_to "Back to steps", narrative_steps_path, class: "btn btn-primary" %>
+  </div>
+</div>

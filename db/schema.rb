@@ -10,14 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_03_163552) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_07_161414) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "default_property_fields", force: :cascade do |t|
+    t.string "name"
+    t.string "property_type"
+    t.string "export_name"
+    t.boolean "show", default: false
+    t.boolean "default_for_root", default: false
+    t.boolean "default_for_step", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "narrative_property_fields", force: :cascade do |t|
     t.string "name"
     t.string "export_name"
     t.integer "property_type", default: 0
+    t.boolean "show", default: false
     t.jsonb "value"
     t.string "dynamic_model_type"
     t.bigint "dynamic_model_id"
@@ -53,6 +65,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_03_163552) do
   end
 
   create_table "narrative_steps", force: :cascade do |t|
+    t.string "name"
+    t.integer "ordinal", default: 0
     t.bigint "narrative_root_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

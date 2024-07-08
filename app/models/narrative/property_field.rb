@@ -1,6 +1,9 @@
 class Narrative::PropertyField < ApplicationRecord
   belongs_to :dynamic_model, polymorphic: true
 
+  scope :show_fields, -> { where(show: true) }
+
+
   enum :property_type, [ :string, :integer, :decimal, :boolean ],
        prefix: true,
        default: :string,
@@ -16,6 +19,7 @@ end
 #  export_name        :string
 #  name               :string
 #  property_type      :integer          default("string")
+#  show               :boolean          default(FALSE)
 #  value              :jsonb
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
